@@ -11,9 +11,17 @@ breads.get("/", (req,res)=>{
 })
 
 // Show: Read one?
+// Class 4: activity bread part 2; chnage send to render
 breads.get("/:arrayIndex", (req,res)=>{
     const arrayIndex = req.params.arrayIndex
-    res.send(Bread[arrayIndex])
+    if (Bread[arrayIndex]) {
+        res.render("Show", {
+            bread: Bread[arrayIndex]
+        })
+    } else {
+        res.send("404")
+    }
+    
 })
 
 // Exports

@@ -11,6 +11,8 @@ const app = express()
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
+// Class 4: brads part 2
+app.use(express.static('public'))
 
 // Routes
 app.get("/", (req,res)=>{
@@ -20,6 +22,12 @@ app.get("/", (req,res)=>{
 // Bread Routes
 const breadsController = require("./controllers/breads_controller.js")
 app.use("/breads", breadsController)
+
+// 404 page: must be on bottom to not over others
+app.get("*", (req,res)=>{
+    res.send("404")
+})
+
 
 /*
 Express:
