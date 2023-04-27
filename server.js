@@ -11,8 +11,12 @@ const app = express()
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
-// Class 4: brads part 2
+// Class 4: breads part 3
 app.use(express.static('public'))
+
+// Class 4: breads part 4
+app.use(express.urlencoded({extended: true}))
+//
 
 // Routes
 app.get("/", (req,res)=>{

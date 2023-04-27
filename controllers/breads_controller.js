@@ -1,4 +1,5 @@
 const express = require('express')
+const { truncate } = require('fs')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
 
@@ -10,8 +11,14 @@ breads.get("/", (req,res)=>{
     })
 })
 
+// Class 4: breads part 4 (needed to be written before breads.get("/:arrayIndex"))
+breads.get('/new', (req,res) => {
+    res.render('new')
+})
+
+
 // Show: Read one?
-// Class 4: activity bread part 2; chnage send to render
+// Class 4: activity bread part 3; chnage send to render
 breads.get("/:arrayIndex", (req,res)=>{
     const arrayIndex = req.params.arrayIndex
     if (Bread[arrayIndex]) {
@@ -24,7 +31,44 @@ breads.get("/:arrayIndex", (req,res)=>{
     
 })
 
+// Class 4: breads part 4, CREATE
+breads.post("/", (req,res)=>{
+    let newBread = { ...req.body }
+    // default bread image (if no link was provided in form)
+    if (newBread.image === ""){
+        newBread.image = "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+    }
+    // process hasGluten checkbox
+    if (newBread.hasGluten === "on"){
+        newBread.hasGluten = true
+    } else if(newBread.hasGluten === "off"){
+        newBread.hasGluten = false
+    } else {
+        console.error("Error: has Gluten value is:", newBread.hasGluten)
+    }
+    Bread.push(newBread)
+    res.redirect('/breads')
+})
+
+
 // Exports
 module.exports = breads
 
 
+/*
+// CREATE
+breads.post('/', (req, res) => {
+  if (!req.body.image) {
+    req.body.image = 'https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
+  }
+  if(req.body.hasGluten === 'on') {
+    req.body.hasGluten = true
+  } else {
+    req.body.hasGluten = false
+  }
+  Bread.push(req.body)
+  res.redirect('/breads')
+})
+
+
+*/

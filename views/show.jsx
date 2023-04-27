@@ -12,7 +12,7 @@ const Show = ({bread})=>{
             {bread.hasGluten ? <span> does </span> : <span> does not </span>}
             have gluten
         </p>
-        <img src={bread.image} alt={bread.name}></img>
+        <img width="480" src={bread.image} alt={bread.name}></img>
         <li>
             <a href="/breads">Go Home</a>
         </li>
