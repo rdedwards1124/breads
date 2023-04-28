@@ -1,4 +1,7 @@
+// Dependencies
 const express = require('express')
+// Class 5: part 5
+const methodOverride = require("method-override")
 
 // Configuration
 require('dotenv').config()
@@ -16,6 +19,8 @@ app.use(express.static('public'))
 
 // Class 4: breads part 4
 app.use(express.urlencoded({extended: true}))
+// Class 5: breads part 5
+app.use(methodOverride("_method"))
 //
 
 // Routes
