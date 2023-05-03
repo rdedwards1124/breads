@@ -5,9 +5,17 @@ const Bread = require('../models/bread.js')
 
 // Index
 breads.get("/", (req,res)=>{
+    Bread.find().then(foundBreads => { // Class 7
+        console.log("Breads found:")
+        console.log(foundBreads)
+        res.render("index",{
+            breads: foundBreads, // Class 7
+        })
     // res.send(Bread)
-    res.render("index",{
-        breads: Bread
+    // res.render("index",{
+    //     breads: Bread,
+    //     title: "Index Page"
+    // })
     })
 })
 
@@ -29,16 +37,29 @@ breads.get('/:arrayIndex/edit', (req,res)=>{
 
 // Show: Read one?
 // Class 4: activity bread part 3; change send to render
-breads.get("/:arrayIndex", (req,res)=>{
-    const arrayIndex = req.params.arrayIndex
-    if (Bread[arrayIndex]) {
-        res.render("Show", {
-            bread: Bread[arrayIndex],
-            index: arrayIndex, // adding index
-        })
-    } else {
-        res.send("404")
-    }
+breads.get("/:id", (req,res)=>{
+    const id = req.params.id
+    Bread.findById(id).then((foundBread) => {
+        if (foundBread === null) {
+            res.send("404 - Bread Not Found")
+        } else {
+            res.render("show", {
+                bread: foundBread,
+            })
+        }
+    }).catch((err) => {
+        res.send("500 - Server Error")
+    })
+
+    // const arrayIndex = req.params.arrayIndex
+    // if (Bread[arrayIndex]) {
+    //     res.render("Show", {
+    //         bread: Bread[arrayIndex],
+    //         index: arrayIndex, // adding index
+    //     })
+    // } else {
+    //     res.send("404")
+    // }
     
 })
 
@@ -47,7 +68,7 @@ breads.post("/", (req,res)=>{
     let newBread = { ...req.body }
     // default bread image (if no link was provided in form)
     if (newBread.image === ""){
-        newBread.image = "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+        newBread.image = undefined // Class 7
     }
     // process hasGluten checkbox
     if (newBread.hasGluten === "on"){
@@ -57,7 +78,7 @@ breads.post("/", (req,res)=>{
     } else {
         console.error("Error: has Gluten value is:", newBread.hasGluten)
     }
-    Bread.push(newBread)
+    Bread.create(newBread) // Class 7
     res.redirect('/breads')
 })
 
