@@ -13,6 +13,9 @@ const Show = ({bread})=>{ //Class 5: bread part 5, adding index
             have gluten
         </p>
         <img width="480" src={bread.image} alt={bread.name}></img>
+        <p>
+          Baked with love by {bread.baker}
+        </p>
         <li>
             <a href="/breads">Go Home</a>
         </li>

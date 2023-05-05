@@ -8,6 +8,10 @@ const breadSchema = new Schema({
   name: {type: String, required: true},
   hasGluten: {type: Boolean},
   image: {type: String, default: 'https://img.freepik.com/free-vector/isolated-bread-loaf-cartoon-style_1308-85000.jpg'},
+  baker: {
+    type: String,
+    enum: ['Rachel','Monica','Joey','Chandler','Ross','Phoebe']
+  },
 })
 
 // create bread model
