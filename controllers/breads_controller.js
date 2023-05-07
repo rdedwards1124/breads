@@ -2,6 +2,7 @@ const express = require('express')
 const { truncate } = require('fs')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
+const Baker = require('../models/baker.js')
 
 // Index
 breads.get("/", (req,res)=>{
@@ -21,7 +22,9 @@ breads.get("/", (req,res)=>{
 
 // Class 4: breads part 4 (needed to be written before breads.get("/:arrayIndex"))
 breads.get('/new', (req,res) => {
-    res.render('new')
+    Baker.find().then((foundBakers)=>{
+        res.render('new', {bakers: foundBakers})
+    })
 })
 
 

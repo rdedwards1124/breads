@@ -42,6 +42,10 @@ app.get("/", (req,res)=>{
 const breadsController = require("./controllers/breads_controller.js")
 app.use("/breads", breadsController)
 
+// Baker Routes
+const bakersController = require("./controllers/bakers_controller.js")
+app.use("/bakers", bakersController)
+
 // 404 page: must be on bottom to not over others
 app.get("*", (req,res)=>{
     res.send("404")

@@ -9,8 +9,8 @@ const breadSchema = new Schema({
   hasGluten: {type: Boolean},
   image: {type: String, default: 'https://img.freepik.com/free-vector/isolated-bread-loaf-cartoon-style_1308-85000.jpg'},
   baker: {
-    type: String,
-    enum: ['Rachel','Monica','Joey','Chandler','Ross','Phoebe']
+    type: Schema.Types.ObjectId,
+    ref: "Baker",
   },
 })
 
