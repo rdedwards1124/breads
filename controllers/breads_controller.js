@@ -6,12 +6,14 @@ const Baker = require('../models/baker.js')
 
 // Index
 breads.get("/", (req,res)=>{
-    Bread.find().then(foundBreads => { // Class 7
-        console.log("Breads found:")
-        console.log(foundBreads)
-        res.render("index",{
-            breads: foundBreads, // Class 7
+    Baker.find().then((foundBakers)=>{
+        Bread.find().then(foundBreads => { // Class 7
+            res.render("index",{
+                breads: foundBreads, // Class 7
+                bakers: foundBakers, // Class 9
+            })
         })
+    
     // res.send(Bread)
     // res.render("index",{
     //     breads: Bread,
