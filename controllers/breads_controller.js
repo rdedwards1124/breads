@@ -31,19 +31,25 @@ breads.get('/new', (req,res) => {
 // EDIT
 breads.get('/:id/edit', (req,res)=>{
     const id = req.params.id
-    Bread.findById(id).then(foundBread => {
-        res.render('edit', {
-            bread: foundBread,
+    Baker.find().then(foundBakers=>{
+        Bread.findById(id).then(foundBread => {
+            res.render('edit', {
+                bread: foundBread,
+                bakers: foundBakers,
+            })
         })
     })
+    
 })
 
 
-// Show: Read one?
+// SHOW: Read one?
 // Class 4: activity bread part 3; change send to render
 breads.get("/:id", (req,res)=>{
     const id = req.params.id
-    Bread.findById(id).then((foundBread) => {
+    Bread.findById(id)
+    .populate("baker")
+    .then((foundBread) => {
         if (foundBread === null) {
             res.send("404 - Bread Not Found")
         } else {
