@@ -17,6 +17,15 @@ bakerSchema.virtual('breads', {
     foreignField: "baker"
 })
 
+// HOOKS: Use regular function syntax, no arrow function!
+bakerSchema.post("findOneAndDelete", (deletedBaker) => {
+    console.log(deletedBaker);
+    Bread.deleteMany({ baker: deletedBaker._id }).then((deleteStatus) => {
+        console.log(deleteStatus);
+    });
+});          
+
+
 
 // model and export
 const Baker = mongoose.model('Baker', bakerSchema)

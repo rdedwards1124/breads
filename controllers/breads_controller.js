@@ -109,7 +109,7 @@ breads.put("/:id", (req,res)=>{
         updateBread.hasGluten = false
     }
     Bread.findByIdAndUpdate(id, updateBread, {new: true}).then(updatedBread => {
-        console.log(updatedBread)
+        console.log(updatedBread) /* don't really need this... */
         res.redirect(`/breads/${id}`)
     })
     

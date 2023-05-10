@@ -32,6 +32,15 @@ bakers.get('/:id', (req, res) => {
         })
 })
 
+// DELETE
+bakers.delete('/:id', (req, res) => {
+    const id = req.params.id
+    Baker.findByIdAndDelete(id) 
+      .then((deletedBaker) => { 
+        res.status(303).redirect('/breads')
+      })
+})
+
 
 
 
