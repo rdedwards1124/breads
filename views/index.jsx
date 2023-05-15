@@ -11,8 +11,8 @@ const Index = ({breads, bakers})=>{
           {
             bakers.map((baker)=>{
               return (
-                <li key={baker.id}>
-                  <a href={`/bakers/${baker.id}`}>{baker.name}</a>
+                <li key={baker._id}>
+                  <a href={`/bakers/${baker._id}`}>{baker.name}</a>
                 </li>
               )
             })
@@ -22,15 +22,15 @@ const Index = ({breads, bakers})=>{
           <a className="button" href="/breads/new">Add a new bread</a>
         </div>
         <ul>
-        {
+          {
             breads.map((bread)=> {
                 return (
-                <li key={bread.id}>
-                    <a href={`/breads/${bread.id}`}>{bread.name}</a>
+                <li key={bread._id}>
+                    <a href={`/breads/${bread._id}`}>{bread.name}</a>
                 </li>
                 )
             })
-        }
+          }
         </ul>
       </Default>
     )

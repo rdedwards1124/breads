@@ -5,22 +5,15 @@ const Bread = require('../models/bread.js')
 const Baker = require('../models/baker.js')
 
 // Index
-breads.get("/", (req,res)=>{
-    Baker.find().then((foundBakers)=>{
-        Bread.find().then(foundBreads => { // Class 7
-            res.render("index",{
-                breads: foundBreads, // Class 7
-                bakers: foundBakers, // Class 9
-            })
-        })
-    
-    // res.send(Bread)
-    // res.render("index",{
-    //     breads: Bread,
-    //     title: "Index Page"
-    // })
+breads.get("/", async (req,res)=>{
+    const foundBreads = await Bread.find().limit(10).lean()
+    const foundBakers = await Baker.find().lean()
+    res.render("index",{
+        breads: foundBreads,
+        bakers: foundBakers,
     })
 })
+
 
 // Class 4: breads part 4 (needed to be written before breads.get("/:arrayIndex"))
 breads.get('/new', (req,res) => {
